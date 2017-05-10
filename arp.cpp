@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include <colors.h>
 #include <stdint.h>
 #include <arpa/inet.h>
 
 #include "arp.h"
 
+#include "colors.h"
 #include "modelcolumnindexes.h"
 #include "shared.h"
 #include "tags.h"

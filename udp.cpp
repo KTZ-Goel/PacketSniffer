@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include <colors.h>
 #include <arpa/inet.h>
 
 #include "udp.h"
 #include "ports.h"
 #include "dns.h"
 
+#include "colors.h"
 #include "shared.h"
 #include "tags.h"
 

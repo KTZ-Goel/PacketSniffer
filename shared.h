@@ -6,6 +6,8 @@
 #include <QList>
 #include <QStandardItem>
 
+#define ETHERNET_DEVICE "enp0s3" // IMPORTANT: Change this to your ethernet device name in "ifconfig"
+
 //If the character passed to this macro is a printable character, return non-zero
 #define IS_PRINTABLE(c)      (((c) >= 32) && ((c) <= 126))
 

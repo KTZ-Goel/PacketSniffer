@@ -1,11 +1,11 @@
 #include <stdio.h>
-#include <colors.h>
 #include <arpa/inet.h>
 #include <time.h>
 #include <string.h>
 
 #include "icmp.h"
 
+#include "colors.h"
 #include "shared.h"
 #include "tags.h"
 

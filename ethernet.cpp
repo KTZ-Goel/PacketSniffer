@@ -3,7 +3,6 @@
 #include <stdint.h>
 #include <time.h>
 #include <arpa/inet.h>
-#include <colors.h>
 
 #include <QList>
 #include <QVariant>
@@ -17,6 +16,7 @@
 #include "ipv4.h"
 #include "ipv6.h"
 
+#include "colors.h"
 #include "shared.h"
 #include "tags.h"
 

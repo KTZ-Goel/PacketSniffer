@@ -44,7 +44,8 @@ HEADERS  += mainwindow.h \
     icmp.h \
     https.h \
     ipv6.h \
-    tags.h
+    tags.h \
+    colors.h
 
 FORMS    += mainwindow.ui
 

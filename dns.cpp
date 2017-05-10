@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdint.h>
-#include <colors.h>
 #include <arpa/inet.h>
 
 #include "dns.h"
 
+#include "colors.h"
 #include "shared.h"
 #include "tags.h"
 

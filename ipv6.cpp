@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include <colors.h>
 #include <arpa/inet.h>
+
+#include "colors.h"
 
 #include "ipv6.h"
 #include "tcp.h"

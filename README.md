@@ -22,3 +22,7 @@ Has support for following Protocols:
 	+ DNS
 	+ HTTP
 	+ HTTPS
+
+Depends on the following packages:
++ libpcap-dev
++ qt5

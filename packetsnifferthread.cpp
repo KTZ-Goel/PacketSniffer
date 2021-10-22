@@ -24,23 +24,24 @@
 #include "tags.h"
 
 
-PacketSnifferThread::PacketSnifferThread(QStandardItemModel *packetModel, QStatusBar *statusBar){
+PacketSnifferThread::PacketSnifferThread(QStandardItemModel *packetModel, QStatusBar *statusBar,std::string device){
     this->packetModel = packetModel;
     this->statusBar = statusBar;
     stopCapture = false;
     packetNumber = 0;
     rawDataView = Binary;
     captureSaved = false;
+    devicea = device;
 }
 
-PacketSnifferThread::PacketSnifferThread(QStandardItemModel *packetModel, QString filePath, QStatusBar *statusBar){
+PacketSnifferThread::PacketSnifferThread(QStandardItemModel *packetModel, QString filePath, QStatusBar *statusBar,std::string device){
     this->packetModel = packetModel;
     this->statusBar = statusBar;
     stopCapture = false;
     packetNumber = 0;
     rawDataView = Binary;
     captureSaved = false;
-    
+    devicea = device;
     QHash<QString, QColor> protocolColors;
     protocolColors.insert("ARP", QColor(255, 125, 125));      //Light Red
     protocolColors.insert("DNS", QColor(183, 247, 119));      //Light Green
@@ -144,8 +145,8 @@ void PacketSnifferThread::run(){
     protocolColors.insert("HTTPS", QColor(121, 201, 201));    //Dark Cyan
     protocolColors.insert("ICMP", QColor(232, 209, 255));     //Light Purple
     protocolColors.insert("Unknown", QColor(255, 253, 140));  //Light Yellow
-    
-    const char *device = ETHERNET_DEVICE;   //The device to sniff on
+
+    const char *device = devicea.c_str();   //The device to sniff on
     pcap_t *handle;                         //The session handle
     char errorBuffer[PCAP_ERRBUF_SIZE];     //The buffer to store error messages in
     bpf_u_int32 networkNumber;              //32 bit network address

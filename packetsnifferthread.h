@@ -2,7 +2,7 @@
 #define PACKETSNIFFERTHREAD_H
 
 #include <vector>
-
+#include <string>
 #include <QThread>
 #include <QStandardItemModel>
 #include <QStatusBar>
@@ -15,8 +15,8 @@ enum RawDataView {
 
 class PacketSnifferThread : public QThread{
 public:
-    PacketSnifferThread(QStandardItemModel *packetModel, QStatusBar *statusBar);
-    PacketSnifferThread(QStandardItemModel *packetModel, QString filePath, QStatusBar *statusBar);
+    PacketSnifferThread(QStandardItemModel *packetModel, QStatusBar *statusBar,std::string device);
+    PacketSnifferThread(QStandardItemModel *packetModel, QString filePath, QStatusBar *statusBar,std::string device);
     ~PacketSnifferThread();
     
 private:
@@ -39,6 +39,7 @@ public:
     bool saveCapture(QString filePath);
     void saveCaptureAs(void);
     void openCapture(void);
+    std::string devicea= "wlo1";
 };
 
 #endif // PACKETSNIFFERTHREAD_H

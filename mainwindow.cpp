@@ -1,10 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <string.h>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QDialogButtonBox>
+
+#include<QNetworkInterface>
 
 #include <QStandardItem>
 #include <QDebug>
@@ -12,7 +14,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+extern
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -53,6 +55,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pauseCaptureButton->setEnabled(false);
     ui->deleteCaptureButton->setEnabled(false);
     
+    QNetworkInterface interface;
+    QList<QNetworkInterface> IpList = interface.allInterfaces();
+    for (int i = 0; i < IpList.size(); i++){
+
+        qDebug() << "Interface " << i << ":" << IpList.at(i).humanReadableName();
+        ui->deviceBox->addItem(IpList.at(i).humanReadableName());
+    }
     packetSnifferThread = NULL;
     isSaved = false;
 }
@@ -69,9 +78,10 @@ MainWindow::~MainWindow(){
 }
 
 void MainWindow::on_startCaptureButton_clicked(){
+    device = ui->deviceBox->currentText().toStdString();
     //If this is the first capture, or if the previous capture was deleted, create a new PacketSnifferThread
     if(packetSnifferThread == NULL){
-        packetSnifferThread = new PacketSnifferThread(packetModel, ui->statusBar);
+        packetSnifferThread = new PacketSnifferThread(packetModel, ui->statusBar,device);
     }
     
     //Disable and enable various buttons
@@ -79,7 +89,7 @@ void MainWindow::on_startCaptureButton_clicked(){
     ui->stopCaptureButton->setEnabled(true);
     ui->pauseCaptureButton->setEnabled(true);
     ui->deleteCaptureButton->setEnabled(false);
-    
+
     //Start the thread
     packetSnifferThread->start();
     ui->statusBar->showMessage(QString("Packet capture started."));
@@ -264,15 +274,15 @@ void MainWindow::on_actionSave_triggered(){
 
 void MainWindow::on_actionNew_Capture_triggered(){
     if(packetSnifferThread == NULL){   //No capture is running, and nothing to save
-        packetSnifferThread = new PacketSnifferThread(packetModel, ui->statusBar);
+        packetSnifferThread = new PacketSnifferThread(packetModel, ui->statusBar,device);
     }
     else if(packetSnifferThread->isRunning()){  //A capture is still running
-        ui->statusBar->showMessage("Please stop the current capture.");
+        ui->statusBar->showMessage("Please stop the capture.");
     }
     else if(isSaved == false){  //The capture is not running, but isnt saved
         ui->deleteCaptureButton->click();
         if(packetSnifferThread == NULL){
-            packetSnifferThread = new PacketSnifferThread(packetModel, ui->statusBar);
+            packetSnifferThread = new PacketSnifferThread(packetModel, ui->statusBar,device);
         }
     }
     else{
@@ -298,7 +308,7 @@ void MainWindow::on_actionOpen_triggered(){
         ui->statusBar->showMessage("No file selected.");
         return;
     }
-    packetSnifferThread = new PacketSnifferThread(packetModel, fileName, ui->statusBar);
+    packetSnifferThread = new PacketSnifferThread(packetModel, fileName, ui->statusBar,device);
     isSaved = true;
     
     /*
@@ -384,3 +394,10 @@ void MainWindow::on_actionPause_triggered(){
 void MainWindow::on_actionClear_triggered(){
     ui->deleteCaptureButton->click();
 }
+
+/*
+void MainWindow::none(){
+
+
+}
+*/

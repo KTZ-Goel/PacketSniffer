@@ -36,6 +36,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    std::string device = "wlo1";
     
 private slots:
     void on_startCaptureButton_clicked();                      //Start the packet capture
